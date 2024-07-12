@@ -29,4 +29,41 @@ export class UserBll {
             console.log(err);
         }
     }
+
+    public async userSignup(body: any) {
+        try {
+            const result =  await getManager().collection('users').insertOne(body);
+            const data = await new UserBll().getData(result.insertedId, 'users');
+            if (!data) {
+                return {};
+            } 
+            return data;
+        } catch (err) {
+            throw new Error(err);
+            
+        }
+    }
+
+    public async getData(id, table) {
+        try {
+            return await getManager().collection(table).findOne({_id : id})
+        } catch (error) {
+            throw new Error(error);
+        }
+
+    }
+
+    public async userLogin(body: any) {
+        try {
+            const [result] =  await getManager().collection('users').find({'email': body.email}).toArray();
+            if(result.password === body.password) {
+                return result;;
+            } else {
+                return false;
+            }
+        } catch (err) {
+            throw new Error(err);
+            
+        }
+    }
 }
