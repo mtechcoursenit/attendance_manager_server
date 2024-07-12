@@ -1,10 +1,10 @@
 import { getManager } from "../../../config/connection";
-import { URLBll } from "../../bll/URLBll";
+import { UserBll } from "../../bll/UserBll";
 
 exports.post = async (req, res) => {
     try {
         const body = req.body;
-        const data = await new URLBll().userLogin(body);
+        const data = await new UserBll().userLogin(body);
         if (data) {
             res.status(200).json({
                 "message": "Login Successful",

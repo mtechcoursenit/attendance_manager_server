@@ -1,10 +1,9 @@
-import { getManager } from "../../../config/connection";
-import { URLBll } from "../../bll/URLBll";
+import { UserBll } from "../../bll/UserBll";
 
 exports.post = async (req, res) => {
     try {
         const body = req.body;
-        const data = await new URLBll().userSignup(body);
+        const data = await new UserBll().userSignup(body);
         if (data) {
             res.status(200).json(data); 
         } else {
