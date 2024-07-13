@@ -52,6 +52,23 @@ export class SubjectsBll {
 
     public async sendMail(text) {
         try {
+            const users = await getManager().collection('users').find({}).toArray();
+            const mailIds = this.getMailIds(users);
+            const result  = await this.sendNotification(mailIds);
+            return result;
+        } catch (err) {
+            return err;
+        }
+    }
+
+    public getMailIds(users) {
+        let Ids = '';
+        Ids = users.map(user => user.email).join(',');
+        return Ids;
+    }
+
+    public async sendNotification(list) {
+        try {
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
@@ -62,9 +79,9 @@ export class SubjectsBll {
     
             var mailOptions = {
                 from: 'nodeattendance@gmail.com',
-                to: 'somnathb583@gmail.com, mtechcoursenit@gmail.com',
-                subject: 'Sending Email using Node.js',
-                text: 'That was easy!'
+                to: list,
+                subject: 'Notification From Attendance Manager => Update your Attendance',
+                text: "Please Update your Attendance for today, if you haven't done yet\n Thank you"
             };
     
             const result =  await transporter.sendMail(mailOptions);
