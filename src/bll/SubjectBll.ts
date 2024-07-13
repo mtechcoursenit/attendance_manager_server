@@ -1,4 +1,6 @@
+import { SubjectWithoutIdentifierError } from "typeorm";
 import { getManager } from "../../config/connection";
+const nodemailer = require("nodemailer");
 
 export class SubjectsBll {
 
@@ -42,6 +44,30 @@ export class SubjectsBll {
                 userId: userId,
                 subjectName: subjectName
             });
+            return result;
+        } catch (err) {
+            return err;
+        }
+    }
+
+    public async sendMail(text) {
+        try {
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'nodeattendance@gmail.com',
+                    pass: 'zndu omns mjcm erlh'
+                }
+            });
+    
+            var mailOptions = {
+                from: 'nodeattendance@gmail.com',
+                to: 'somnathb583@gmail.com, mtechcoursenit@gmail.com',
+                subject: 'Sending Email using Node.js',
+                text: 'That was easy!'
+            };
+    
+            const result =  await transporter.sendMail(mailOptions);
             return result;
         } catch (err) {
             return err;
