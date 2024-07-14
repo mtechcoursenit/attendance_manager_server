@@ -1,6 +1,8 @@
-import { SubjectWithoutIdentifierError } from "typeorm";
 import { getManager } from "../../config/connection";
 const nodemailer = require("nodemailer");
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 export class SubjectsBll {
 
@@ -70,15 +72,15 @@ export class SubjectsBll {
     public async sendNotification(list) {
         try {
             var transporter = nodemailer.createTransport({
-                service: 'gmail',
+                service: process.env.service,
                 auth: {
-                    user: 'nodeattendance@gmail.com',
-                    pass: 'zndu omns mjcm erlh'
+                    user: process.env.authUser,
+                    pass: process.env.authpass
                 }
             });
     
             var mailOptions = {
-                from: 'nodeattendance@gmail.com',
+                from: process.env.authUser,
                 to: list,
                 subject: 'Notification From Attendance Manager => Update your Attendance',
                 text: "Please Update your Attendance for today, if you haven't done yet\n Thank you"

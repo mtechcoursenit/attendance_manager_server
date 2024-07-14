@@ -3,9 +3,12 @@ import * as body_parser from 'body-parser';
 import * as cors from 'cors';
 import * as mongoConnection from '../config/connection';
 import * as path from 'path';
+import * as dotenv from 'dotenv';
 
+
+dotenv.config();
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
