@@ -1,29 +1,19 @@
 import { MongoClient } from "mongodb";
+import * as dotenv from "dotenv";
+dotenv.config();
 
-const uri =  "mongodb+srv://mtechcoursenit:Somnath7631@@cluster0.1qvt5v0.mongodb.net/?retryWrites=true&w=majority";
 
 let mongoManager;
-
-// export  const getMongoClient = async () => {
-//     MongoClient.connect(uri).then(client => {
-//         mongoManager = client.db('NodeJS');
-//         console.log('Connection Successfull')
-//     }).catch(err => {
-//         console.error(err);
-//     })
-// }
-
 export const getMongoClient = async () => {
-  MongoClient.connect(uri)
+  MongoClient.connect(process.env.uri)
     .then((client) => {
-      mongoManager = client.db("NodeJS");
+      mongoManager = client.db(process.env.db);
       console.log("Connection Successfull");
     })
     .catch((err) => {
       console.error(err);
     });
 };
-
 
 export const getManager =  () => {
     if(mongoManager) {
