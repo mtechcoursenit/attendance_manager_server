@@ -4,11 +4,14 @@ import * as cors from 'cors';
 import * as mongoConnection from '../config/connection';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
+import { createMQProducer } from './rabbitmq/rabbitmq-index';
+import { rabbitmqConfig } from './rabbitmqConfig/rabbitmq.config';
+import { getMessage } from './handler/message-handler';
 
 
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 3000;;
+const PORT = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
@@ -20,6 +23,21 @@ autoRoutes(path.join(__dirname, './controllers'));
 
 mongoConnection.getMongoClient();
 
+let broker;
+createMQProducer(rabbitmqConfig)
+    .then(result => {
+        broker = result;
+        getMessage();
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+export const getBroker = () => {
+    if (broker) {
+        return broker;
+    }
+}
 
 app.listen(PORT, () => {
     console.log(`Server Running at port ${PORT}`);
