@@ -21,6 +21,15 @@ export class SubjectsBll {
         }
     }
 
+    public async getSubjects(userId: string) {
+        try {
+            const result = await getManager().collection('subject').find({userId: userId}).toArray();
+            return result;
+        } catch (err) {
+            return err;
+        }
+    }
+
 
     public async updateAttendance(subjectName: string, userId: string, presentAttendance: Number, absentAttendance: number) {
         try {
@@ -52,7 +61,7 @@ export class SubjectsBll {
         }
     }
 
-    public async sendMail(text) {
+    public async sendMail() {
         try {
             const users = await getManager().collection('users').find({}).toArray();
             const mailIds = this.getMailIds(users);
