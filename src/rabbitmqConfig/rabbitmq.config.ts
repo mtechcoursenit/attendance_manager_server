@@ -13,6 +13,22 @@ export const rabbitmqConfig = {
         {
             name: 'userLoginEx',
             type: 'direct'
+        },
+        {
+            name: 'createSubjectEx',
+            type: 'direct'
+        },
+        {
+            name: 'deleteAttendanceEx',
+            type: 'direct'
+        },
+        {
+            name: 'updateAttendanceEx',
+            type: 'direct'
+        },
+        {
+            name: 'getSubjectsEx',
+            type: 'direct'
         }
     ],
     queues: [
@@ -25,6 +41,26 @@ export const rabbitmqConfig = {
             name: 'userLoginQue',
             routingKey: 'userLoginRK',
             exchangeName: 'userLoginEx'
+        },
+        {
+            name: 'createSubjectQue',
+            routingKey: 'createSubjectRK',
+            exchangeName: 'createSubjectEx'
+        },
+        {
+            name: 'deleteAttendanceQue',
+            routingKey: 'deleteAttendanceRK',
+            exchangeName: 'deleteAttendanceEx'
+        },
+        {
+            name: 'updateAttendanceQue',
+            routingKey: 'updateAttendanceRK',
+            exchangeName: 'updateAttendanceEx'
+        },
+        {
+            name: 'getSubjectsQue',
+            routingKey: 'getSubjectsRK',
+            exchangeName: 'getSubjectsEx'
         }
     ]
 };

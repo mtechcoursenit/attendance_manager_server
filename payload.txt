@@ -16,3 +16,32 @@ userLogin
   "email" : "tanuka33@gmail.com",
   "password" : "1234"
 }
+
+create subject and delete subject
+
+{
+ "body":
+  {
+    "subjectName" : "history",
+    "userId" : "001"
+  }
+}
+
+
+update attendance
+{
+ "body":
+  {
+    "subjectName" : "Maths",
+    "userId" : "1235",
+    "presentAttendance" : 13,
+    "absentAttendance" : 2
+  }
+}
+
+get Subjects
+{
+  "body" : {
+     "userId" : "1235"
+  }
+}
