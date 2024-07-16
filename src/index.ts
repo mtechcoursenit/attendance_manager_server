@@ -7,6 +7,7 @@ import * as dotenv from 'dotenv';
 import { createMQProducer } from './rabbitmq/rabbitmq-index';
 import { rabbitmqConfig } from './rabbitmqConfig/rabbitmq.config';
 import { getMessage } from './handler/message-handler';
+import { middlware } from './middleware';
 
 
 dotenv.config();
@@ -17,6 +18,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
 app.use(body_parser.json());
 app.use(cors());
+app.use(middlware);
 
 var autoRoutes = require('express-auto-routes')(app); // you don't need `routes` folder any more
 autoRoutes(path.join(__dirname, './controllers'));
