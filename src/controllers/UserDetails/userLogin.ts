@@ -1,4 +1,3 @@
-import { getManager } from "../../../config/connection";
 import { UserBll } from "../../bll/UserBll";
 
 exports.post = async (req, res) => {
